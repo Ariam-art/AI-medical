@@ -28,7 +28,7 @@ function DoctorDashboard() {
     setMessage("");
 
     try {
-      const data = await getDoctorHistory(user.username);
+      const data = await getDoctorHistory();
       setRecords(data);
     } catch (error) {
       setMessage(error.message || "Failed to load records.");
@@ -52,7 +52,6 @@ function DoctorDashboard() {
       setMessage("");
 
       await sendAccessRequest({
-        doctor_username: user.username,
         patient_username: patientUsername.trim(),
       });
 

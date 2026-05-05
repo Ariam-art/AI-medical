@@ -11,7 +11,7 @@ function History() {
 
   async function loadHistory() {
     try {
-      const data = await getUserHistory(user.username);
+      const data = await getUserHistory();
       setHistory(data);
     } catch (error) {
       setMessage("Could not load history.");
@@ -26,7 +26,7 @@ function History() {
     if (!confirmed) return;
 
     try {
-      await deleteHistory(recordId, user.username);
+      await deleteHistory(recordId);
       await loadHistory();
 
       if (selectedRecord?.id === recordId) {

@@ -1,10 +1,11 @@
 from pydantic import BaseModel
+from typing import Literal
 
 
 class RegisterRequest(BaseModel):
     username: str
     password: str
-    role: str
+    role: Literal["user", "doctor"]
 
 
 class LoginRequest(BaseModel):
@@ -13,16 +14,13 @@ class LoginRequest(BaseModel):
 
 
 class PredictRequest(BaseModel):
-    username: str
     symptoms: str
-    
-    
+
+
 class AccessRequestCreate(BaseModel):
-    doctor_username: str
     patient_username: str
 
 
 class AccessRequestAction(BaseModel):
     request_id: int
-    patient_username: str
-    action: str  
+    action: Literal["accepted", "reject"]

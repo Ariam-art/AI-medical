@@ -21,7 +21,6 @@ function Dashboard() {
       setMessage("");
 
       const data = await predictSymptoms({
-        username: user.username,
         symptoms,
       });
 

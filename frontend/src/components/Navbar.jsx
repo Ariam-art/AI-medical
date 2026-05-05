@@ -6,6 +6,7 @@ function Navbar() {
 
   function logout() {
     localStorage.removeItem("medical_user");
+    localStorage.removeItem("token");
     navigate("/login");
   }
 
@@ -22,13 +23,9 @@ function Navbar() {
         <Link to="/dashboard">Prediction</Link>
         <Link to="/history">My History</Link>
 
-        {user?.role === "user" && (
-          <Link to="/requests">Access Requests</Link>
-        )}
+        {user?.role === "user" && <Link to="/requests">Access Requests</Link>}
 
-        {user?.role === "doctor" && (
-          <Link to="/doctor">Doctor Dashboard</Link>
-        )}
+        {user?.role === "doctor" && <Link to="/doctor">Doctor Dashboard</Link>}
 
         <button onClick={logout}>Logout</button>
       </nav>

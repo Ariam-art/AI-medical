@@ -13,7 +13,7 @@ function AccessRequests() {
   async function loadRequests() {
     try {
       setLoading(true);
-      const data = await getAccessRequests(user.username);
+      const data = await getAccessRequests();
       setRequests(data);
       setMessage("");
     } catch (error) {
@@ -29,7 +29,6 @@ function AccessRequests() {
 
       await respondAccessRequest({
         request_id: requestId,
-        patient_username: user.username,
         action,
       });
 

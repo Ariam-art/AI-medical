@@ -8,6 +8,7 @@ function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   async function handleLogin(event) {
     event.preventDefault();
@@ -20,6 +21,9 @@ function Login() {
         password,
       });
 
+      // Save token
+      localStorage.setItem("token", data.access_token);
+
       localStorage.setItem(
         "medical_user",
         JSON.stringify({
@@ -30,7 +34,7 @@ function Login() {
 
       navigate("/dashboard");
     } catch (error) {
-      setMessage("Invalid username or password");
+      setMessage(error.message || "Invalid username or password");
     }
   }
 
@@ -56,30 +60,54 @@ function Login() {
           <h2>Welcome Back</h2>
           <p className="muted">Login to continue to your dashboard</p>
 
+          {/* Username */}
           <label>Username</label>
           <input
             type="text"
             placeholder="Enter username"
             value={username}
-            onChange={(event) => setUsername(event.target.value)}
+            onChange={(e) => setUsername(e.target.value)}
             required
           />
 
+          {/* Password */}
           <label>Password</label>
-          <input
-            type="password"
-            placeholder="Enter password"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            required
-          />
 
+          <div style={{ position: "relative" }}>
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Enter password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              style={{ paddingRight: "40px" }}
+            />
+
+            {/* 👁️ Toggle */}
+            <span
+              onClick={() => setShowPassword(!showPassword)}
+              style={{
+                position: "absolute",
+                right: "10px",
+                top: "50%",
+                transform: "translateY(-50%)",
+                cursor: "pointer",
+                fontSize: "14px",
+              }}
+            >
+              {showPassword ? "🙈" : "👁️"}
+            </span>
+          </div>
+
+          {/* Login button */}
           <button className="primary-btn" type="submit">
             Login
           </button>
 
+          {/* Error message */}
           {message && <p className="error-message">{message}</p>}
 
+          {/* Register link */}
           <p className="auth-switch">
             Do not have an account? <Link to="/register">Create account</Link>
           </p>
